@@ -58,3 +58,15 @@ class Graph:
             self.vertices[v1].add(v2)
         else:
             raise IndexError("That vertex does not exist")
+
+    def bft(self, starting_vertex_id, target_id):
+        q = Queue()
+        q.enqueue(starting_vertex_id)
+        visited = set()
+
+        while q.size() > 0:
+            v = q.dequeue()
+            print(v)
+            visited.add(v)
+            for next_vert in self.vertices[v]:
+                q.enqueue(next_vert)
