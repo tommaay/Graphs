@@ -84,3 +84,12 @@ class Graph:
 
             for next_vert in self.vertices[v]:
                 s.push(next_vert)
+
+    def dft_recursive(self, starting_vertex_id, visited=None):
+        if visited is None:
+            visited = set()
+        visited.add(starting_vertex_id)
+
+        for next_vert in self.vertices[starting_vertex_id]:
+            if next_vert not in visited:
+                self.dft_recursive(next_vert, visited)
