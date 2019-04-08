@@ -68,5 +68,19 @@ class Graph:
             v = q.dequeue()
             print(v)
             visited.add(v)
+
             for next_vert in self.vertices[v]:
                 q.enqueue(next_vert)
+
+    def dft(self, starting_vertex_id):
+        s = Stack()
+        s.push(starting_vertex_id)
+        visited = set()
+
+        while s.size() > 0:
+            v = s.pop()
+            print(v)
+            visited.add(v)
+
+            for next_vert in self.vertices[v]:
+                s.push(next_vert)
