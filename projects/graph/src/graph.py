@@ -127,6 +127,28 @@ class Graph:
                     search_queue.enqueue(neighbor)
         return False
 
+    # Breadth First Search
+    def df_search(self, starting_vertex_id, target_id):
+        search_stack = Stack()
+        searched = set()
+        # Put the starting vertex in the Stack
+        search_stack.push(starting_vertex_id)
+        # While the stack is not empty...
+        while search_stack.size() > 0:
+            # Pop the top node from the Stack
+            v = search_stack.pop()
+            # If node hasn't been searched, add it to searched
+            if v not in searched:
+                searched.add(v)
+                # check if node value == target
+                if v == target_id:
+                    return True
+
+                # Put children onto Stack
+                for neighbor in self.vertices[v]:
+                    search_stack.push(neighbor)
+        return False
+
 
 g = Graph()
 g.add_vertex(1)
@@ -138,4 +160,5 @@ g.add_directed_edge(1, 3)
 g.add_directed_edge(2, 3)
 g.add_directed_edge(3, 4)
 print(g.vertices)
-print(g.bf_search(1, 4))
+print(g.bf_search(1, 4))  # True
+print(g.df_search(1, 6))  # False
