@@ -60,34 +60,40 @@ class Graph:
             raise IndexError("That vertex does not exist")
 
     # Breadth First Traversal
-    def bft(self, starting_vertex_id, target_id):
+    def bft(self, starting_vertex_id):
         q = Queue()
-        q.enqueue(starting_vertex_id)
         visited = set()
-
+        # Put the starting vertex in the Queue
+        q.enqueue(starting_vertex_id)
+        # While the Queue is not empty...
         while q.size() > 0:
+            # Dequeue the first node from the Queue
             v = q.dequeue()
-            print(v)
-            visited.add(v)
-
+            # If note hasn't been visited, add it to visited
             if v not in visited:
-                for next_vert in self.vertices[v]:
-                    q.enqueue(next_vert)
+                print(v)
+                visited.add(v)
+                # Put children into Queue
+                for neighbor in self.vertices[v]:
+                    q.enqueue(neighbor)
 
     # Depth First Traversal
     def dft(self, starting_vertex_id):
         s = Stack()
-        s.push(starting_vertex_id)
         visited = set()
-
+        # Put the starting vertex in the Stack
+        s.push(starting_vertex_id)
+        # While the stack is not empty...
         while s.size() > 0:
+            # Pop the top node from the Stack
             v = s.pop()
-            print(v)
-            visited.add(v)
-
+            # If that node has not been visted, add it to visited
             if v not in visited:
-                for next_vert in self.vertices[v]:
-                    s.push(next_vert)
+                print(v)
+                visited.add(v)
+                # Put children into Stack
+                for neighbor in self.vertices[v]:
+                    s.push(neighbor)
 
     # Recursive Depth First Traversal
     def dft_recursive(self, starting_vertex_id, visited=None):
@@ -95,6 +101,19 @@ class Graph:
             visited = set()
         visited.add(starting_vertex_id)
 
-        for next_vert in self.vertices[starting_vertex_id]:
-            if next_vert not in visited:
-                self.dft_recursive(next_vert, visited)
+        for neighbor in self.vertices[starting_vertex_id]:
+            if neighbor not in visited:
+                self.dft_recursive(neighbor, visited)
+
+
+g = Graph()
+g.add_vertex(1)
+g.add_vertex(2)
+g.add_vertex(3)
+g.add_vertex(4)
+g.add_directed_edge(1, 2)
+g.add_directed_edge(1, 3)
+g.add_directed_edge(2, 3)
+g.add_directed_edge(3, 4)
+print(g.vertices)
+print(g.dft(1))
