@@ -115,6 +115,7 @@ class Graph:
         while search_queue.size() > 0:
             # Dequeue the first node from the Queue
             path = search_queue.dequeue()
+            print('path', path)
             v = path[-1]
             # If node hasn't been searched, add it to searched
             if v not in searched:
@@ -139,7 +140,9 @@ class Graph:
         # While the stack is not empty...
         while search_stack.size() > 0:
             # Pop the top node from the Stack
+            print('search_stack', search_stack.stack)
             path = search_stack.pop()
+            print('path', path)
             v = path[-1]
             # If node hasn't been searched, add it to searched
             if v not in searched:
