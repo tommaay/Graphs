@@ -59,6 +59,7 @@ class Graph:
         else:
             raise IndexError("That vertex does not exist")
 
+    # Breadth First Traversal
     def bft(self, starting_vertex_id, target_id):
         q = Queue()
         q.enqueue(starting_vertex_id)
@@ -69,9 +70,11 @@ class Graph:
             print(v)
             visited.add(v)
 
-            for next_vert in self.vertices[v]:
-                q.enqueue(next_vert)
+            if v not in visited:
+                for next_vert in self.vertices[v]:
+                    q.enqueue(next_vert)
 
+    # Depth First Traversal
     def dft(self, starting_vertex_id):
         s = Stack()
         s.push(starting_vertex_id)
@@ -82,9 +85,11 @@ class Graph:
             print(v)
             visited.add(v)
 
-            for next_vert in self.vertices[v]:
-                s.push(next_vert)
+            if v not in visited:
+                for next_vert in self.vertices[v]:
+                    s.push(next_vert)
 
+    # Recursive Depth First Traversal
     def dft_recursive(self, starting_vertex_id, visited=None):
         if visited is None:
             visited = set()
