@@ -110,44 +110,50 @@ class Graph:
         search_queue = Queue()
         searched = set()
         # Put the starting vertex in the Queue
-        search_queue.enqueue(starting_vertex_id)
+        search_queue.enqueue([starting_vertex_id])
         # While the Queue is not empty...
         while search_queue.size() > 0:
             # Dequeue the first node from the Queue
-            v = search_queue.dequeue()
+            path = search_queue.dequeue()
+            v = path[-1]
             # If node hasn't been searched, add it to searched
             if v not in searched:
-                searched.add(v)
                 # check if node value == target
                 if v == target_id:
-                    return True
+                    return path
 
+                searched.add(v)
                 # Put children into Queue
                 for neighbor in self.vertices[v]:
-                    search_queue.enqueue(neighbor)
-        return False
+                    new_path = list(path)
+                    new_path.append(neighbor)
+                    search_queue.enqueue(new_path)
+        return None
 
     # Breadth First Search
     def df_search(self, starting_vertex_id, target_id):
         search_stack = Stack()
         searched = set()
         # Put the starting vertex in the Stack
-        search_stack.push(starting_vertex_id)
+        search_stack.push([starting_vertex_id])
         # While the stack is not empty...
         while search_stack.size() > 0:
             # Pop the top node from the Stack
-            v = search_stack.pop()
+            path = search_stack.pop()
+            v = path[-1]
             # If node hasn't been searched, add it to searched
             if v not in searched:
-                searched.add(v)
                 # check if node value == target
                 if v == target_id:
-                    return True
+                    return path
 
+                searched.add(v)
                 # Put children onto Stack
                 for neighbor in self.vertices[v]:
-                    search_stack.push(neighbor)
-        return False
+                    new_path = list(path)
+                    new_path.append(neighbor)
+                    search_stack.push(new_path)
+        return None
 
 
 g = Graph()
@@ -160,5 +166,6 @@ g.add_directed_edge(1, 3)
 g.add_directed_edge(2, 3)
 g.add_directed_edge(3, 4)
 print(g.vertices)
-print(g.bf_search(1, 4))  # True
-print(g.df_search(1, 6))  # False
+# print(g.bf_search(1, 4))
+print(g.df_search(1, 4))
+print(g.df_search(1, 6))
